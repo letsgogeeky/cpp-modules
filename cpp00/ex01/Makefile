@@ -6,7 +6,7 @@
 #    By: ramoussa <ramoussa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 17:40:36 by ramoussa          #+#    #+#              #
-#    Updated: 2023/11/09 18:11:10 by ramoussa         ###   ########.fr        #
+#    Updated: 2023/12/16 15:02:21 by ramoussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,11 @@ all:
 
 $(NAME): $(OBJ)
 	@$(CC) $(OBJ) -o $(NAME) $(CFLAGS) && echo "Compiled $(NAME) successfully..!"
+
+## OBJ_DIR can be replaced by INCLUDE directory incase you need to include a library
+.SECONDEXPANSION:
+$(OBJ_DIR)/%.o: $(SRC_DIR)/$$(subst @,/,$$*).cpp
+	@$(CC) $(CFLAGS) $(addprefix -iquote ,$(OBJ_DIR)) -c $< -o $@
 
 $(OBJ): $(OBJ_DIR)
 
