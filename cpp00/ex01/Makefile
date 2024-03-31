@@ -3,19 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ramoussa <ramoussa@student.42.fr>          +#+  +:+       +#+         #
+#    By: ramymoussa <ramymoussa@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 17:40:36 by ramoussa          #+#    #+#              #
-#    Updated: 2023/12/16 15:02:21 by ramoussa         ###   ########.fr        #
+#    Updated: 2024/03/30 23:26:11 by ramymoussa       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := awesome_phonebook
 
 CC := g++
-CFLAGS := Werror Wextra Wall -std=c++98
+CFLAGS := -Werror -Wextra -Wall -std=c++98
 
-SRC := main.cpp
+SRC := main.cpp \
+		Contact.cpp \
+		Phonebook.cpp
 
 SRC_DIR := .
 OBJ_DIR := obj

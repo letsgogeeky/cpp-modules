@@ -3,19 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ramoussa <ramoussa@student.42.fr>          +#+  +:+       +#+         #
+#    By: ramymoussa <ramymoussa@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 17:40:36 by ramoussa          #+#    #+#              #
-#    Updated: 2023/11/09 18:15:25 by ramoussa         ###   ########.fr        #
+#    Updated: 2024/03/31 11:36:37 by ramymoussa       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := accountant
 
 CC := g++
-CFLAGS := Werror Wextra Wall -std=c++98
+CFLAGS := -Werror -Wextra -Wall -std=c++98 -g
 
-SRC := Account.cpp
+SRC := Account.cpp main.cpp
 
 SRC_DIR := .
 OBJ_DIR := obj
@@ -32,6 +32,11 @@ $(OBJ): $(OBJ_DIR)
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
+
+## OBJ_DIR can be replaced by INCLUDE directory incase you need to include a library
+.SECONDEXPANSION:
+$(OBJ_DIR)/%.o: $(SRC_DIR)/$$(subst @,/,$$*).cpp
+	@$(CC) $(CFLAGS) $(addprefix -iquote ,$(OBJ_DIR)) -c $< -o $@
 
 clean:
 	@rm -rf $(OBJ)

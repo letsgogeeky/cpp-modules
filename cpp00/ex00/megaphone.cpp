@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   megaphone.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramoussa <ramoussa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ramymoussa <ramymoussa@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:40:33 by ramoussa          #+#    #+#             */
-/*   Updated: 2023/12/14 19:51:18 by ramoussa         ###   ########.fr       */
+/*   Updated: 2024/03/30 22:48:11 by ramymoussa       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ int	main(int argc, const char **argv)
 		{
 			for (int j = 0; argv[i][j];j++)
 			{
-				std::cout << phone::toupper(static_cast<unsigned char>(argv[i][j]));
+				if (std::isalpha(argv[i][j]))
+					std::cout << phone::toupper(static_cast<unsigned char>(argv[i][j]));
+				else
+					std::cout << argv[i][j];
 			}
 		}
 	}

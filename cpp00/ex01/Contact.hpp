@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Contact.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramoussa <ramoussa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ramymoussa <ramymoussa@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 15:02:03 by ramoussa          #+#    #+#             */
-/*   Updated: 2023/12/16 16:13:15 by ramoussa         ###   ########.fr       */
+/*   Updated: 2024/03/31 12:38:51 by ramymoussa       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ public:
 	void	setPhoneNumber(std::string phoneNumber);
 	void	setDarkestSecret(std::string darkestSecret);
 	bool	isComplete();
+	void	displayContact(int index);
 
-	// void	displayContact(const Contact &contact);
+private:
+	void	formatField(std::string field);
+
 };
 
 #endif
