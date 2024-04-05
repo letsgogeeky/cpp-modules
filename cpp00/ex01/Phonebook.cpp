@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Phonebook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramymoussa <ramymoussa@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ramoussa <ramoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 15:02:13 by ramoussa          #+#    #+#             */
-/*   Updated: 2024/03/30 23:32:49 by ramymoussa       ###   ########.fr       */
+/*   Updated: 2024/04/05 16:58:21 by ramoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,11 @@ void PhoneBook::contactForm()
 
 const Contact PhoneBook::searchContact(int idx)
 {
-	if (idx >= maxContacts || idx < 0)
-		std::cerr << "List index out of range!";
+	if (idx >= maxContacts || idx < 0 || idx >= m_count)
+	{
+		std::cerr << "List index out of range!" << std::endl;
+		std::cerr << "There are " << m_count << " contacts to search in." << std::endl;
+	}
 	if (idx > m_currentIndex)
 	{
 		std::cerr << "List index out of range!";
