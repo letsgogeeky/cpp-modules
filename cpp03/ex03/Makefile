@@ -1,6 +1,6 @@
 NAME := ex
 
-CC := g++
+CC := c++
 CFLAGS := -Werror -Wextra -Wall -std=c++98
 
 SRC := main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp

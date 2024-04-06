@@ -6,13 +6,13 @@
 #    By: ramymoussa <ramymoussa@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 17:40:36 by ramoussa          #+#    #+#              #
-#    Updated: 2024/03/31 15:15:56 by ramymoussa       ###   ########.fr        #
+#    Updated: 2024/04/06 12:28:03 by ramymoussa       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := zombie
 
-CC := g++
+CC := c++
 CFLAGS := -Werror -Wextra -Wall -std=c++98
 
 SRC := main.cpp Zombie.cpp newZombie.cpp randomChump.cpp

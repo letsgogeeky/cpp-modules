@@ -1,6 +1,6 @@
 NAME := ex03
 
-CC := g++
+CC := c++
 CFLAGS := -Werror -Wextra -Wall -std=c++98
 
 SRC := main.cpp Fixed.cpp Point.cpp bsp.cpp
