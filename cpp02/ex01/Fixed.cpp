@@ -69,3 +69,9 @@ std::ostream& operator<<(std::ostream& os, const Fixed& fixed)
     os << fixed.toFloat();
     return os;
 }
+
+bool Fixed::isShiftable(int value)
+{
+	return (value <= static_cast<int>(std::numeric_limits<int>::max() >> _fractionalBits) && 
+			value >= static_cast<int>(std::numeric_limits<int>::min() >> _fractionalBits));
+}

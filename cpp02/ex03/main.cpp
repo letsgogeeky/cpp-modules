@@ -9,10 +9,15 @@ int main( void )
     Point const c(Fixed(2), Fixed(4));
 
     // should be inside
-    Point const point(Fixed(0.2f), Fixed(0.5f));
+    Point const inside(Fixed(0.2f), Fixed(0.5f));
 
     // should be outside
-    Point const point(Fixed(0.5f), Fixed(0.5f));
-    std::cout << bsp(a, b, c, point) << std::endl;
+    Point const vertex(Fixed(0), Fixed(0));
+
+	// should be outside
+	Point const edge(Fixed(0), Fixed(1));
+    std::cout << bsp(a, b, c, inside) << std::endl;
+	std::cout << bsp(a, b, c, vertex) << std::endl;
+	std::cout << bsp(a, b, c, edge) << std::endl;
     return 0;
 }

@@ -24,11 +24,7 @@ public:
     float toFloat(void) const;
     int toInt(void) const;
 
-    static bool isShiftable(int value)
-    {
-        return (value <= static_cast<int>(std::numeric_limits<int>::max() >> _fractionalBits) && 
-                value >= static_cast<int>(std::numeric_limits<int>::min() >> _fractionalBits));
-    }
+    bool isShiftable(int value);
 };
 
 std::ostream& operator<<(std::ostream& os, const Fixed& fixed);

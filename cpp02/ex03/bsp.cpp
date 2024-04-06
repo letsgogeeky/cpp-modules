@@ -15,5 +15,5 @@ bool bsp( Point const a, Point const b, Point const c, Point const point )
     std::cout << "a2: " << a2 << std::endl;
     Fixed const a3 = (point.getX() - x3) * (y1 - y3) - (x1 - x3) * (point.getY() - y3);
     std::cout << "a3: " << a3 << std::endl;
-    return (a1 >= 0 && a2 >= 0 && a3 >= 0) || (a1 <= 0 && a2 <= 0 && a3 <= 0);
+    return (a1 > 0 && a2 > 0 && a3 > 0) || (a1 < 0 && a2 < 0 && a3 < 0);
 }
