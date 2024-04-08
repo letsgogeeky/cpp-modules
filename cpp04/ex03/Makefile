@@ -1,9 +1,9 @@
 NAME := ex
 
 CC := c++
-CFLAGS := -Werror -Wextra -Wall -std=c++98 -fsanitize=address
+CFLAGS := -Werror -Wextra -Wall -std=c++98 -g
 
-SRC := main.cpp AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp
+SRC := main.cpp AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp Fire.cpp
 
 SRC_DIR := .
 OBJ_DIR := obj

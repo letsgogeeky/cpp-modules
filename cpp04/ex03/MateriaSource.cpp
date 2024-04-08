@@ -50,5 +50,6 @@ AMateria *MateriaSource::createMateria(std::string const &type)
         if (_materias[i] && _materias[i]->getType() == type)
             return (_materias[i]->clone());
     }
+	std::cout << "WAKEUP!! No materia with type " << type << std::endl;
     return (NULL);
 }

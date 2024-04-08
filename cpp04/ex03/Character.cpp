@@ -20,6 +20,7 @@ Character::Character(const Character &character)
 
 Character::~Character()
 {
+	std::cout << "Deconstructing Character: " << name << std::endl;
     for (int i = 0; i < 4; i++)
     {
         if (materias[i])
