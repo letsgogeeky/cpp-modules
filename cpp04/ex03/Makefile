@@ -2,7 +2,7 @@ NAME := ex
 
 CC := c++
 CFLAGS := -Werror -Wextra -Wall -std=c++98 -g
-
+HEADER := -I interfaces
 SRC := main.cpp AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp Fire.cpp
 
 SRC_DIR := .
@@ -14,7 +14,7 @@ all:
 	@$(MAKE) $(NAME) -j
 
 $(NAME): $(OBJ)
-	@$(CC) $(OBJ) -o $(NAME) $(CFLAGS) && echo "Compiled $(NAME) successfully..!"
+	@$(CC) $(OBJ) $(HEADER) -o $(NAME) $(CFLAGS) && echo "Compiled $(NAME) successfully..!"
 
 ## OBJ_DIR can be replaced by INCLUDE directory incase you need to include a library
 .SECONDEXPANSION:

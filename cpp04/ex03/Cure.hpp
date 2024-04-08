@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "AMateria.hpp"
-#include "ICharacter.hpp"
+#include "interfaces/ICharacter.hpp"
 
 class Cure: public AMateria
 {
