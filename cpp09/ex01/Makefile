@@ -1,9 +1,9 @@
-NAME := ex
+NAME := RPN
 
 CC := c++
 CFLAGS := -Werror -Wextra -Wall -std=c++98
 
-SRC := main.cpp 
+SRC := main.cpp RPN.cpp
 
 SRC_DIR := .
 OBJ_DIR := obj
