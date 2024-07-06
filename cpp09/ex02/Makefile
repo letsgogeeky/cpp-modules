@@ -3,7 +3,7 @@ NAME := PmergeMe
 CC := c++
 CFLAGS := -Werror -Wextra -Wall -std=c++98
 
-SRC := main.cpp RPN.cpp
+SRC := main.cpp PmergeMe.cpp
 
 SRC_DIR := .
 OBJ_DIR := obj
