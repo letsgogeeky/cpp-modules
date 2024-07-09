@@ -14,7 +14,8 @@ private:
 	int _length;
 	void _computeJacobs();
 	// void _fillVectorPairs();
-	// void _sortVectorPairs();
+	void _sortVectorPairs(std::vector< std::vector<int> > &vec);
+	bool _checkSorted(std::vector<int> &vec);
 public:
 	PmergeMe(std::list<int> &data);
 	// PmergeMe(const PmergeMe &pmergeme);
