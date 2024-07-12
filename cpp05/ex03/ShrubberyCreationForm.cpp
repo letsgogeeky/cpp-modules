@@ -53,7 +53,8 @@ void ShrubberyCreationForm::execute(const Bureaucrat &executor) const
 
 void ShrubberyCreationForm::writeStaticTree(const std::string filename) const
 {
-    std::ofstream file(filename);
+    std::ofstream file;
+	file.open(filename.c_str(), std::ios::out | std::ios::trunc);
     if (!file.is_open())
     {
         std::cerr << "Error: could not open file " << filename << std::endl;
@@ -75,7 +76,8 @@ void ShrubberyCreationForm::writeStaticTree(const std::string filename) const
 
 void ShrubberyCreationForm::writeDynamicTree(const std::string filename, int levels) const
 {
-    std::ofstream file(filename);
+    std::ofstream file;
+	file.open(filename.c_str(), std::ios::out | std::ios::trunc);
     if (!file.is_open())
     {
         std::cerr << "Error: could not open file " << filename << std::endl;

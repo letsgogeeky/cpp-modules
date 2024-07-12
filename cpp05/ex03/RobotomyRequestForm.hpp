@@ -1,5 +1,6 @@
 #include "AForm.hpp"
 #include <iostream>
+#include <cstdlib>
 
 class AForm;
 

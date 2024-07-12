@@ -1,6 +1,4 @@
 #include "RobotomyRequestForm.hpp"
-#include <random>
-#include <cstdlib>
 #include "Bureaucrat.hpp"
 
 RobotomyRequestForm::RobotomyRequestForm(): AForm("default", 72, 45), _target("defaultTarget")
