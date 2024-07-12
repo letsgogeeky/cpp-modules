@@ -1,6 +1,7 @@
 #include "LinkedList.hpp"
 #include <iostream>
 
+LinkedList::LinkedList() {}
 LinkedList::LinkedList(int data) : data(data), next(NULL), prev(NULL)
 {
 }
