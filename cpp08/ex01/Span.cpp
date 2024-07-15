@@ -40,6 +40,17 @@ void Span::addNumber(int number)
 	_size++;
 }
 
+void Span::addNumber(int* numbers, unsigned int size)
+{
+	if (_size + size > _n)
+		throw std::exception();
+	for (unsigned int i = 0; i < size; i++)
+	{
+		_array[_size] = numbers[i];
+		_size++;
+	}
+}
+
 int Span::shortestSpan()
 {
 	if (_size <= 1)
@@ -67,7 +78,7 @@ int Span::shortestSpanSlowAsHell()
 {
 	if (_size <= 1)
 		throw std::exception();
-	int min = INT_MAX;
+	int min = std::numeric_limits<int>::max();
 	for (unsigned int i = 0; i < _size; i++)
 	{
 		for (unsigned int j = i + 1; j < _size; j++)

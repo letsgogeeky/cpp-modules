@@ -13,6 +13,11 @@ void test_with_container(T &container)
         std::cout << *it << std::endl;
         ++it;
     }
+	std::cout << "Using for loop iterator" << std::endl;
+	for (typename T::iterator it = container.begin(); it != container.end(); it++)
+	{
+		std::cout << *it << std::endl;
+	}
 }
 MutantStack<int> get_mutant_stack()
 {
@@ -42,6 +47,32 @@ std::list<int> get_list()
     return lst;
 }
 
+void test_mutant_operations()
+{
+	MutantStack<int> mstack = get_mutant_stack();
+
+	std::cout << "Popping: " << mstack.top() << std::endl;
+	mstack.pop();
+	std::cout << "Popping: " << mstack.top() << std::endl;
+	mstack.pop();
+	std::cout << "Popping: " << mstack.top() << std::endl;
+	mstack.pop();
+	std::cout << "Popping: " << mstack.top() << std::endl;
+	mstack.pop();
+	std::cout << "Popping: " << mstack.top() << std::endl;
+	mstack.pop();
+	std::cout << "Popping: " << mstack.top() << std::endl;
+	mstack.pop();
+	mstack.push(42);
+	std::cout << "Pushed: " << mstack.top() << std::endl;
+	mstack.push(2521);
+	std::cout << "Pushed: " << mstack.top() << std::endl;
+	mstack.push(400);
+	std::cout << "Pushed: " << mstack.top() << std::endl;
+	mstack.push(-4231);
+	std::cout << "Pushed: " << mstack.top() << std::endl;
+}
+
 
 int main()
 {
@@ -53,6 +84,9 @@ int main()
 
     std::cout << "List:" << std::endl;
     test_with_container(lst);
+
+	std::cout << "Testing MutantStack operations" << std::endl;
+	test_mutant_operations();
 
     return 0;
 }

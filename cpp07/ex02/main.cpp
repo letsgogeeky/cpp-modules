@@ -3,8 +3,25 @@
 #include <cstdlib>
 
 #define MAX_VAL 750
+
+void test_empty_array()
+{
+	Array<int> numbers = Array<int>();
+	std::cout << "Array size: " << numbers.size() << std::endl;
+	try
+	{
+		numbers[0] = 0;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+}
 int main(int, char**)
 {
+	std::cout << "Test empty array" << std::endl;
+	test_empty_array();
+	std::cout << "Done!!" << std::endl;
     Array<int> numbers(MAX_VAL);
     int* mirror = new int[MAX_VAL];
     srand(time(NULL));
@@ -29,7 +46,7 @@ int main(int, char**)
         }
     }
 	// Print array
-	std::cout << "Array:" << std::endl;
+	std::cout << "Array:: ->>>>>" << std::endl;
 	for (int i = 0; i < MAX_VAL; i++)
 	{
 		std::cout << numbers[i] << std::endl;
@@ -56,6 +73,6 @@ int main(int, char**)
     {
         numbers[i] = rand();
     }
-    delete [] mirror;//
+    delete [] mirror;
     return 0;
 }

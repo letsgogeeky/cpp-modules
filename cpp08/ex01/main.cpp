@@ -1,6 +1,5 @@
 #include "Span.hpp"
 #include <iostream>
-#include <random>
 
 void test_optimized(unsigned int n)
 {
@@ -39,14 +38,23 @@ int main()
 	test_optimized(10000);
 	test_slow_as_hell(10000);
 
-	// testing with 100k
-	std::cout << "Testing with 100k" << std::endl;
-	test_optimized(100000);
-	test_slow_as_hell(100000);
+	// testing with 50k
+	std::cout << "Testing with 50k" << std::endl;
+	test_optimized(50000);
+	test_slow_as_hell(50000);
 
-	// testing with 1m
-	std::cout << "Testing with 1m" << std::endl;
-	test_optimized(1000000);
-	test_slow_as_hell(1000000);
-	
+	/*
+	// testing with 300k
+	std::cout << "Testing with 300k" << std::endl;
+	test_optimized(300000);
+	test_slow_as_hell(300000);
+	*/
+
+	std::cout << "---------------------" << std::endl;
+	std::cout << "Testing advanced addNumber" << std::endl;
+	int arr[] = {1, 2, 3, 4, 5};
+	Span sp = Span(5);
+	sp.addNumber(arr, 5);
+	std::cout << "Shortest span: " << sp.shortestSpan() << std::endl;
+	std::cout << "Longest span: " << sp.longestSpan() << std::endl;
 }
