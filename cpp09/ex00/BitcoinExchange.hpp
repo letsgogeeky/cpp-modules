@@ -1,6 +1,7 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <sstream>
 #include <fstream>
 #include <exception>
 
@@ -23,6 +24,8 @@ private:
     Error    _isValidRecord(std::string record) const;
     void    _parseRecord(std::string record);
     void    logError(Error error, std::string record) const;
+	double	_convertToDouble(std::string str) const;
+	int     _dateToTimestamp(std::string date) const;
 
 public:
     BitcoinExchange(std::string path);

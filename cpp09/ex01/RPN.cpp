@@ -67,9 +67,9 @@ bool RPN::_calculate(char op)
 		return false;
 	if (_stack.size() < 2)
 		return false;
-	double second = _stack.top();
+	float second = _stack.top();
 	_stack.pop();
-	double first = _stack.top();
+	float first = _stack.top();
 	_stack.pop();
 	switch (op)
 	{
@@ -85,10 +85,10 @@ bool RPN::_calculate(char op)
 			_destroy(&op);
 			throw DivisionByZeroException();
 		}
-		_stack.push(first / second);
+		_stack.push((first * 1.0) / (second * 1.0));
 		break;
 	case '*':
-		_stack.push(first * second);
+		_stack.push(first * second * 1.0);
 		break;
 	default:
 		return false;
@@ -130,7 +130,7 @@ void RPN::handleError(Error error)
 	}
 }
 
-double RPN::compute(const char *expression)
+float RPN::compute(const char *expression)
 {
 	for (const char *p = expression; *p; ++p)
 	{
@@ -141,7 +141,7 @@ double RPN::compute(const char *expression)
 				_destroy(p);
 				throw IllegalFormatException();
 			}
-			_stack.push(std::stoi(std::string(p).substr(0, 1)));
+			_stack.push(_convertToFloat(std::string(p).substr(0, 1)) * 1.0);
 		}
 		if (_isOperator(*p))
 		{
@@ -173,6 +173,15 @@ std::string RPN::getIssue()
 	if (!hasError)
 		return "";
 	return issue;
+}
+
+float RPN::_convertToFloat(std::string str) const
+{
+	std::stringstream ss(str);
+	float result;
+	ss >> result;
+	result = static_cast<float>(result);
+	return result;
 }
 
 const char *RPN::IllegalFormatException::what() const throw()

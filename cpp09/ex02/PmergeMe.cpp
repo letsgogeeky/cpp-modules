@@ -5,6 +5,7 @@
 PmergeMe::PmergeMe(std::list<int> &data) 
 {
 	_data = data;
+	_start = clock();
 	_length = data.size();
 	_computeJacobs();
 }
@@ -124,6 +125,8 @@ std::vector<int> PmergeMe::sortWithVector()
 		std::cout << "Seq: " << *it << std::endl;
 
 	std::cout << "Sorted: " << _checkSorted(seq) << std::endl;
+	_end = clock();
+	_elapsed = (static_cast<double>(_end - _start) / CLOCKS_PER_SEC) * 1000000;
 	return _vec[0];
 }
 
@@ -135,4 +138,11 @@ bool PmergeMe::_checkSorted(std::vector<int> &vec)
 			return false;
 	}
 	return true;
+}
+
+std::string PmergeMe::getElapsedString() const
+{
+	std::string elapsed = std::to_string(_elapsed);
+	elapsed += " us";
+	return elapsed;
 }

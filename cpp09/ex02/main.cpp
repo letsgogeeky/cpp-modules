@@ -29,6 +29,16 @@ std::list<int> splitInput(char *input, char delim = ' ')
 	return v;
 }
 
+bool isAllPositive(std::list<int> &v)
+{
+	for (std::list<int>::iterator it = v.begin(); it != v.end(); it++)
+	{
+		if (*it < 0)
+			return false;
+	}
+	return true;
+}
+
 // std::list<int> loadList(std::vector<std::string> &v)
 // {
 // 	std::list<int> l;
@@ -73,10 +83,22 @@ int main(int argc, char **argv)
 		return 1;
 	}
 	std::list<int> v = splitInput(argv[1]);
-
+	if (!isAllPositive(v))
+	{
+		std::cerr << "Error: invalid input, please make sure all numbers are positive." << std::endl;
+		std::cerr << usage << std::endl;
+		return 1;
+	}
+	std::cout << "Input: ";
+	for (std::list<int>::iterator it = v.begin(); it != v.end(); it++)
+		std::cout << *it << " ";
 	PmergeMe sorter = PmergeMe(v);
 	
 	std::vector<int> result = sorter.sortWithVector();
-
+	std::cout << std::endl << "Output: ";
+	for (std::vector<int>::iterator it = result.begin(); it != result.end(); it++)
+		std::cout << *it << " ";
+	std::cout << std::endl;
+	std::cout << "Vector Elapsed time: " << sorter.getElapsedString() << std::endl;
 	return 0;
 }
