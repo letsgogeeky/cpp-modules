@@ -1,18 +1,22 @@
 #include "PmergeMe.hpp"
-#include <algorithm>
-#include <iostream>
 
-PmergeMe::PmergeMe(std::list<int> &data) 
+template <typename T, typename Container>
+PmergeMe<T, Container>::PmergeMe(std::list<int> &data)
 {
 	_data = data;
-	_start = clock();
 	_length = data.size();
 	_computeJacobs();
 }
 
-PmergeMe::~PmergeMe() {}
+template <typename T, typename Container>
+PmergeMe<T, Container>::~PmergeMe() {
+	paired.clear();
+	_data.clear();
+	_jacobs.clear();
+}
 
-void PmergeMe::_computeJacobs()
+template <typename T, typename Container>
+void PmergeMe<T, Container>::_computeJacobs()
 {
 	int lastJacobs = -1;
 	for (int i = 3; lastJacobs <= _length - 1; i++)
@@ -20,82 +24,69 @@ void PmergeMe::_computeJacobs()
 		lastJacobs = (pow(2, i) - pow(-1, i)) / 3;
 		_jacobs.push_back(lastJacobs);
 	}
-	for (std::list<int>::iterator it = _jacobs.begin(); it != _jacobs.end(); it++)
-		std::cout << "This Jacob is huge: " << *it << std::endl;
 }
-
-void PmergeMe::_sortVectorPairs(std::vector< std::vector<int> > &vec)
+template <typename T, typename Container>
+void PmergeMe<T, Container>::_sortPairs(Container &data)
 {
-	if (vec.size() == 1)
+	if (data.size() == 1)
 		return;
 	
-	size_t mid = vec.size() / 2;
-	std::vector< std::vector<int> > left(vec.begin(), vec.begin() + mid);
-	std::vector< std::vector<int> > right(vec.begin() + mid, vec.end());
-	_sortVectorPairs(left);
-	_sortVectorPairs(right);
+	size_t mid = data.size() / 2;
+	Container left(data.begin(), data.begin() + mid);
+	Container right(data.begin() + mid, data.end());
+	_sortPairs(left);
+	_sortPairs(right);
 	
-	std::merge(left.begin(), left.end(), right.begin(), right.end(), vec.begin());
+	std::merge(left.begin(), left.end(), right.begin(), right.end(), data.begin());
 }
-
-std::vector<int> PmergeMe::sortWithVector()
+template <typename T, typename Container>
+void PmergeMe<T, Container>::_fillPairs()
 {
-	int strangler = -1;
-	std::vector<int> seq;
-	std::vector<int> pend;
-	if (_length % 2 != 0)
-	{
-		strangler = _data.back();
-		_data.pop_back();
-	}
-	// convert data to vector;
 	for (std::list<int>::iterator it = _data.begin(); it != _data.end(); it++)
 	{
-		std::vector<int> pair;
+		T pair;
 		pair.push_back(*it);
 		it++;
 		pair.push_back(*it);
-		_vec.push_back(pair);
+		paired.push_back(pair);
 	}
-	int idx = 0;
-	for (std::vector< std::vector<int> >::iterator it = _vec.begin(); it != _vec.end(); it++)
-	{
-		std::cout << "Pair starting idx: " << idx << std::endl;
-		std::cout << "Before sorting pair: [" << (*it).at(0) << ", " << (*it).at(1) << "]" << std::endl;
-		// sort pairs asc
-		if ((*it).at(0) > (*it).at(1))
-		{
-			int tmp = (*it).at(0);
-			(*it)[0] = (*it).at(1);
-			(*it)[1] = tmp;
-		}
-		std::cout << "After sorting asc pair: [" << (*it).at(0) << ", " << (*it).at(1) << "]" << std::endl;
+}
 
-		// sort pairs desc >> REMEMBER REMEMBER THE 5TH OF NEVEMBER!! TO REMOVE IT.
+template <typename T, typename Container>
+void PmergeMe<T, Container>::_adjustPairs()
+{
+	for (typename Container::iterator it = paired.begin(); it != paired.end(); it++)
+	{
 		if ((*it).at(0) < (*it).at(1))
 		{
 			int tmp = (*it).at(0);
 			(*it)[0] = (*it).at(1);
 			(*it)[1] = tmp;
 		}
-		std::cout << "After sorting desc pair: [" << (*it).at(0) << ", " << (*it).at(1) << "]" << std::endl;
 	}
-	_sortVectorPairs(_vec);
-	for (std::vector< std::vector<int> >::iterator it = _vec.begin(); it != _vec.end(); it++)
+}
+
+template <typename T, typename Container>
+T PmergeMe<T, Container>::sort()
+{
+	int strangler = -1;
+
+	_start = clock();
+	if (_length % 2 != 0)
+	{
+		strangler = _data.back();
+		_data.pop_back();
+	}
+	_fillPairs();
+	_adjustPairs();
+	_sortPairs(paired);
+	for (typename Container::iterator it = paired.begin(); it != paired.end(); it++)
 	{
 		seq.push_back((*it).at(0));
 		pend.push_back((*it).at(1));
 	}
 	if (strangler != -1)
 		pend.push_back(strangler);
-	for (std::vector<int>::iterator it = seq.begin(); it != seq.end(); it++)
-		std::cout << "Seq: " << *it << std::endl;
-
-	for (std::vector<int>::iterator it = pend.begin(); it != pend.end(); it++)
-		std::cout << "Pend: " << *it << std::endl;
-
-	// seq.insert(seq.begin(), pend.at(0));
-	// pend.erase(pend.begin());
 	int prevJacobs = -1;
 	bool jacobPassedUpperBound = false;
 	int skip = 1;
@@ -109,30 +100,31 @@ std::vector<int> PmergeMe::sortWithVector()
 			jacobPassedUpperBound = true;
 			idx = pend.size() - 1;
 		}
-		std::cout << "Jacob idx: " << idx << std::endl;
 		while (prevJacobs < idx)
 		{
 			int item = pend.at(idx);
-			std::vector<int>::iterator it = std::lower_bound(seq.begin(), seq.begin() + idx + skip, item);
-			seq.insert(it, item);
+			typename T::iterator it = std::lower_bound(seq.begin(), seq.begin() + idx + skip, item);
+			// IMPORTANT: item was a strangler and it happens to be the largest element in the sequence
+			if (it == seq.begin() + idx + skip)
+				seq.push_back(item);
+			else
+				seq.insert(it, item);
 			skip++;
 			idx--;
 		}
 		prevJacobs = *it;
 	}
-
-	for (std::vector<int>::iterator it = seq.begin(); it != seq.end(); it++)
-		std::cout << "Seq: " << *it << std::endl;
-
-	std::cout << "Sorted: " << _checkSorted(seq) << std::endl;
+	if (!_checkSorted(seq))
+		throw PmergeMe::StackOverflowException();
 	_end = clock();
 	_elapsed = (static_cast<double>(_end - _start) / CLOCKS_PER_SEC) * 1000000;
-	return _vec[0];
+	return seq;
 }
 
-bool PmergeMe::_checkSorted(std::vector<int> &vec)
+template <typename T, typename Container>
+bool PmergeMe<T, Container>::_checkSorted(T &vec)
 {
-	for (std::vector<int>::iterator it = vec.begin(); it != vec.end() - 1; it++)
+	for (typename T::iterator it = vec.begin(); it != vec.end() - 1; it++)
 	{
 		if (*it > *(it + 1))
 			return false;
@@ -140,9 +132,40 @@ bool PmergeMe::_checkSorted(std::vector<int> &vec)
 	return true;
 }
 
-std::string PmergeMe::getElapsedString() const
-{
+template <typename T, typename Container>
+std::string PmergeMe<T, Container>::getElapsedString() const {
 	std::string elapsed = std::to_string(_elapsed);
 	elapsed += " us";
 	return elapsed;
+}
+
+template <typename T, typename Container>
+PmergeMe<T, Container>::PmergeMe(const PmergeMe &pmergeme)
+{
+	_data = pmergeme._data;
+	_jacobs = pmergeme._jacobs;
+	_length = pmergeme._length;
+	_start = pmergeme._start;
+	_end = pmergeme._end;
+	_elapsed = pmergeme._elapsed;
+	seq = pmergeme.seq;
+	pend = pmergeme.pend;
+	paired = pmergeme.paired;
+}
+
+template <typename T, typename Container>
+PmergeMe<T, Container> &PmergeMe<T, Container>::operator=(const PmergeMe &other)
+{
+	if (this == &other)
+		return *this;
+	_data = other._data;
+	_jacobs = other._jacobs;
+	_length = other._length;
+	_start = other._start;
+	_end = other._end;
+	_elapsed = other._elapsed;
+	seq = other.seq;
+	pend = other.pend;
+	paired = other.paired;
+	return *this;
 }

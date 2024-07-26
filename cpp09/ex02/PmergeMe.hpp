@@ -1,15 +1,21 @@
+#ifndef __PMERGEME_HPP
+#define __PMERGEME_HPP
+
 #include <iostream>
 #include <vector>
 #include <list>
 #include <deque>
 #include <ctime>
+#include <algorithm>
 
+template <typename T, typename Container>
 class PmergeMe
 {
 private:
-	PmergeMe();
-	std::vector<std::vector<int> > _vec;
-	std::deque<std::deque<int> > _deq;
+	PmergeMe() {};
+	Container paired;
+	T seq;
+	T pend;
 	std::list<int> _data;
 	std::list<int> _jacobs;
 	int _length;
@@ -17,15 +23,26 @@ private:
 	unsigned long _end;
 	unsigned long _elapsed;
 	void _computeJacobs();
-	// void _fillVectorPairs();
-	void _sortVectorPairs(std::vector< std::vector<int> > &vec);
-	bool _checkSorted(std::vector<int> &vec);
+	void _fillPairs();
+	void _adjustPairs();
+	void _sortPairs(Container &data);
+	bool _checkSorted(T &data);
 public:
 	PmergeMe(std::list<int> &data);
-	// PmergeMe(const PmergeMe &pmergeme);
-	// PmergeMe &operator=(const PmergeMe &other);
+	PmergeMe(const PmergeMe &pmergeme);
+	PmergeMe &operator=(const PmergeMe &other);
 	~PmergeMe();
-	std::vector<int> sortWithVector();
+	T sort();
 	std::string getElapsedString() const;
-	// std::deque<int> sortWithDeque(std::deque<int> data);
+	class StackOverflowException : public std::exception
+	{
+		virtual const char *what() const throw()
+		{
+			return "Stack overflow exception";
+		}
+	};
 };
+
+#include "PmergeMe.cpp"
+
+#endif
