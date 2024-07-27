@@ -14,7 +14,12 @@ all:
 	@$(MAKE) $(NAME) -j
 
 $(NAME): $(OBJ)
-	@$(CC) $(OBJ) -o $(NAME) $(CFLAGS) && echo "Compiled $(NAME) successfully..!"
+	@python3 anim.py &
+	@ANIMATION_PID=$$!;
+	@$(CC) $(OBJ) -o $(NAME) $(CFLAGS)
+	@sleep  7.5
+	@touch stop_animation.txt
+	@wait $$ANIMATION_PID 2>/dev/null && echo "Cool isn't it?"
 
 ## OBJ_DIR can be replaced by INCLUDE directory incase you need to include a library
 .SECONDEXPANSION:

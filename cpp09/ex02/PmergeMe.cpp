@@ -79,7 +79,11 @@ T PmergeMe<T, Container>::sort()
 	}
 	_fillPairs();
 	_adjustPairs();
-	_sortPairs(paired);
+	try {
+		_sortPairs(paired);
+	} catch (std::exception &e) {
+		throw PmergeMe::StackOverflowException();
+	}
 	for (typename Container::iterator it = paired.begin(); it != paired.end(); it++)
 	{
 		seq.push_back((*it).at(0));
