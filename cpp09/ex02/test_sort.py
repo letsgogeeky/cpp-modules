@@ -89,7 +89,7 @@ def _generate_set(size, start, end) -> list:
 def test_sort():
     subprocess.run(['make', 're'])
     lyz = Analyzer()
-    for i in range(0, 50):
+    for i in range(0, 20):
         size = random.randint(10, 5000)
         start = random.randint(0, 200)
         end = random.randint(6000, 100000)

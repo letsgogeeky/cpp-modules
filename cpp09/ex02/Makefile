@@ -14,12 +14,21 @@ all:
 	@$(MAKE) $(NAME) -j
 
 $(NAME): $(OBJ)
-	@python3 anim.py &
-	@ANIMATION_PID=$$!;
-	@$(CC) $(OBJ) -o $(NAME) $(CFLAGS)
-	@sleep  7.5
-	@touch stop_animation.txt
-	@wait $$ANIMATION_PID 2>/dev/null && echo "Cool isn't it?"
+	@$(CC) $(OBJ) -o $(NAME) $(CFLAGS) && touch .$(NAME)-compiled
+	@if test -f .$(NAME)-compiled; then \
+		echo "Compilation Complete: $(NAME) is ready!"; \
+		echo "       ___________  "; \
+		echo "      '._==_==_=_.' "; \
+		echo "      .-\\:CPP09 /-.    "; \
+		echo "     | (|:.ex02 |) |    "; \
+		echo "      '-|:.     |-'     "; \
+		echo "        \\::.    /      "; \
+		echo "         '::. .'        "; \
+		echo "           ) (          "; \
+		echo "         _.' '._        "; \
+		echo "        '-------'       "; \
+		rm -f .$(NAME)-compiled; \
+	fi
 
 ## OBJ_DIR can be replaced by INCLUDE directory incase you need to include a library
 .SECONDEXPANSION:
@@ -30,6 +39,9 @@ $(OBJ): $(OBJ_DIR)
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
+
+test:
+	@python3 test_sort.py
 
 clean:
 	@rm -rf $(OBJ)
