@@ -138,8 +138,9 @@ bool PmergeMe<T, Container>::_checkSorted(T &vec)
 
 template <typename T, typename Container>
 std::string PmergeMe<T, Container>::getElapsedString() const {
-	std::string elapsed = std::to_string(_elapsed);
-	elapsed += " us";
+	std::stringstream ss;
+	ss << _elapsed << " us";
+	std::string elapsed = ss.str();
 	return elapsed;
 }
 

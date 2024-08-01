@@ -7,6 +7,8 @@
 #include <deque>
 #include <ctime>
 #include <algorithm>
+#include <cmath>
+#include <sstream>
 
 template <typename T, typename Container>
 class PmergeMe

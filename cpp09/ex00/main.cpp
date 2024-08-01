@@ -15,15 +15,15 @@ int main(int argc, char **argv)
     }
     std::string path = argv[1];
     std::string db_path = "db/data.csv";
-	// try
-	// {
+	try
+	{
 		BitcoinExchange bitcoinExchange(db_path);
 		bitcoinExchange.processInput(path);
-	// }
-	// catch(const std::exception& e)
-	// {
-	// 	logException(e);
-	// 	return 1;
-	// }
+	}
+	catch(const std::exception& e)
+	{
+		logException(e);
+		return 1;
+	}
 	return 0;
 }
